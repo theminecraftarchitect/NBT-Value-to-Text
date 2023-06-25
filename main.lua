@@ -1,3 +1,10 @@
+NBT_Value_to_Text = {
+    styler = {
+        type = EXTENSION_TYPE.NBT_EDITOR_STYLE,
+        recursive = true
+    }
+}
+
 local NBTValueConverter = {}
 
 NBTValueConverter.valueMappings = {
