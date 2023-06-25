@@ -5,9 +5,7 @@ NBT_Value_to_Text = {
     }
 }
 
-local NBTValueConverter = {}
-
-NBTValueConverter.valueMappings = {
+NBT_Value_to_Text.valueMappings = {
     rain = {
         [0] = "no rain",
         [1] = "rain"
@@ -42,16 +40,16 @@ NBTValueConverter.valueMappings = {
     }
 }
 
-function NBTValueConverter:convertValue(key, value)
+function NBT_Value_to_Text:convertValue(key, value)
     local mappings = self.valueMappings[key]
     return mappings and mappings[value] or value
 end
 
-function NBTValueConverter:convertNBTValues(root, context)
+function NBT_Value_to_Text:convertNBTValues(root, context)
     self:traverseNBT(root, context)
 end
 
-function NBTValueConverter:traverseNBT(node, context)
+function NBT_Value_to_Text:traverseNBT(node, context)
     if type(node) == "table" then
         for key, value in pairs(node) do
             if type(value) == "table" then
@@ -63,4 +61,4 @@ function NBTValueConverter:traverseNBT(node, context)
     end
 end
 
-return NBTValueConverter
+return NBT_Value_to_Text
