@@ -1,6 +1,6 @@
 {
   "link" : "https://github.com/theminecraftarchitect/NBT-Value-to-Text",
-  "name" : "NBT Value to Text",
+  "name" : "NBT_Value_to_Text",
   "version" : "1.0.0",
   "author" : "The Minecraft Architect",
   "description" : "Converts NBT values to text for easier editing",
