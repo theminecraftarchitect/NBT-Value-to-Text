@@ -1,16 +1,59 @@
-ExtensionName = { -- must match name of repository
-    styler = { -- object to represent an extension type, can be named anything
-        type = EXTENSION_TYPE.NBT_EDITOR_STYLE, -- type of this extension
-        recursive = true -- whether or not to run ExtensionName.styler:recursion() on every NBT tag in the file (more expensive)
+local NBTValueConverter = {}
+
+NBTValueConverter.valueMappings = {
+    rain = {
+        [0] = "no rain",
+        [1] = "rain"
+    },
+    hardcore = {
+        [0] = "false",
+        [1] = "true"
+    },
+    initialized = {
+        [0] = "false",
+        [1] = "true"
+    },
+    allowCommands = {
+        [0] = "false",
+        [1] = "true"
+    },
+    DifficultyLocked = {
+        [0] = "false",
+        [1] = "true"
+    },
+    raining = {
+        [0] = "false",
+        [1] = "true"
+    },
+    thundering = {
+        [0] = "false",
+        [1] = "true"
+    },
+    wasModded = {
+        [0] = "false",
+        [1] = "true"
     }
 }
 
-function ExtensionName.styler:main(root, context)
-  
+function NBTValueConverter:convertValue(key, value)
+    local mappings = self.valueMappings[key]
+    return mappings and mappings[value] or value
 end
 
-function ExtensionName.styler:recursion(root, target, context)
-  
+function NBTValueConverter:convertNBTValues(root, context)
+    self:traverseNBT(root, context)
 end
 
-return ExtensionName
+function NBTValueConverter:traverseNBT(node, context)
+    if type(node) == "table" then
+        for key, value in pairs(node) do
+            if type(value) == "table" then
+                self:traverseNBT(value, context)
+            else
+                node[key] = self:convertValue(key, value)
+            end
+        end
+    end
+end
+
+return NBTValueConverter
